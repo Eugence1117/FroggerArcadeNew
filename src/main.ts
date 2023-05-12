@@ -49,10 +49,10 @@ function main() {
 function keyboardControl() {
   // keyboard controls for frog
   const key$ = fromEvent<KeyboardEvent>(document,"keydown"); 
-
+  
   const moveLeft = key$.pipe(
     // take only left key
-    filter(({key}) => key === 'ArrowLeft'),
+    filter(({key}) => key.toLowerCase() === 'a'),
     filter(({repeat}) => !repeat),
     // check for hold down button 
     // mergeMap(d => interval(10).pipe(
@@ -69,7 +69,7 @@ function keyboardControl() {
 
   const moveRight = key$.pipe(
     // take only left key
-    filter(({key}) => key === 'ArrowRight'),
+    filter(({key}) => key.toLowerCase() === 'd'),
     filter(({repeat}) => !repeat),
     // check for hold down button 
     // mergeMap(d => interval(10).pipe(
@@ -88,7 +88,7 @@ function keyboardControl() {
 
   const moveUp = key$.pipe(
     // take only left key
-    filter(({key}) => key === 'ArrowUp'),
+    filter(({key}) => key.toLowerCase() === 'w'),
     filter(({repeat}) => !repeat),
     // check for hold down button 
     // mergeMap(d => interval(10).pipe(
@@ -105,7 +105,7 @@ function keyboardControl() {
 
   const moveDown = key$.pipe(
     // take only left key
-    filter(({key}) => key === 'ArrowDown'),
+    filter(({key}) => key.toLowerCase() === 's'),
     filter(({repeat}) => !repeat),
     // check for hold down button 
     // mergeMap(d => interval(10).pipe(
