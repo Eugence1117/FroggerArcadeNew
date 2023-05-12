@@ -26,6 +26,10 @@ body{
     
 }
 
+#status{
+    margin: auto;
+}
+
 #status > div {
     display: flex;
     flex-direction: row;
@@ -33,6 +37,11 @@ body{
 
 #status > div > p{
     width: 50%;        
+}
+
+
+#status > div > p:first-of-type{
+    text-align: start;
 }
 
 #status > div > p:last-of-type{

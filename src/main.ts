@@ -61,10 +61,18 @@ function keyboardControl() {
     //   )),
     //   map(_=>d)
     // )),
-    map(_=> ({
-      x: -Constant.BLOCK_SIZE,
-      y: 0
-    }))
+    map(_ => {
+      if (game.frog.x > 0) {
+        return {
+          x: -Constant.BLOCK_SIZE,
+          y: 0
+        }
+      }
+      return {
+        x: 0,
+        y:0
+      }
+    })
     );
 
   const moveRight = key$.pipe(
@@ -79,10 +87,16 @@ function keyboardControl() {
     //   map(_=>d)
     // )),
     map(_=> {    
-      return ({
-        x: Constant.BLOCK_SIZE,
-        y: 0
-      })
+      if (game.frog.x < (Constant.MAP_TOTAL_COLUMN-1) * Constant.BLOCK_SIZE) {
+        return ({
+          x: Constant.BLOCK_SIZE,
+          y: 0
+        })
+      }
+      return {
+        x: 0,
+        y:0
+      }
     })    
     );
 
@@ -97,10 +111,18 @@ function keyboardControl() {
     //   )),
     //   map(_=>d)
     // )),
-    map(_=> ({
-      x: 0,
-      y: -Constant.BLOCK_SIZE,
-    }))
+    map(_ => {
+      if (game.frog.y > 0) {
+        return {
+          x: 0,
+          y: -Constant.BLOCK_SIZE,
+        }
+      }
+      return {
+        x: 0,
+        y:0
+      }
+    })
     );
 
   const moveDown = key$.pipe(
@@ -114,10 +136,18 @@ function keyboardControl() {
     //   )),
     //   map(_=>d)
     // )),
-    map(_=> ({
-      x: 0,
-      y: Constant.BLOCK_SIZE,
-    }))
+    map(_ => {
+      if (game.frog.y < (Constant.MAP_TOTAL_COLUMN-1) * Constant.BLOCK_SIZE) {
+        return {
+          x: 0,
+          y: Constant.BLOCK_SIZE,
+        }        
+      }  
+      return {
+        x: 0,
+        y:0
+      }
+    })
     );
 
   merge(moveLeft,moveRight,moveUp,moveDown).
@@ -142,6 +172,9 @@ function checkCollideObject(frog:Frog,movingObjects:Array<Array<MovingObject>>):
   const currentRow = frog.y / Constant.BLOCK_SIZE; //Frog move at a constant speed, so divide by block size can know which row frog is/
   const rowObjects = movingObjects[currentRow]; //Get the moving object from that row to check whether any collision happened
 
+  if (rowObjects == null) {
+    return false;
+  }
   let collidedObject = null;
   frog.ride = undefined; // Used to hold the rideable moving objects like Log or Turtle(If added)
   for(let item of rowObjects){
